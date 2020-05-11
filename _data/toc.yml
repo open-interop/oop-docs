@@ -1,22 +1,33 @@
 - title: Documentation
-  url: docs
+  external_url: '/'
   links:
-    - title: "Getting Started"
-      url: "docs/getting-started"
+    - title: "Installation"
+      url: installation
+      children:
+        - title: via Github
+          url: "installation#via-github"
+        - title: via Docker Hub
+          url: "installation#via-docker-hub"
+    - title: "User Guide"
+      url: user-guide
+    - title: "API Documentation"
+      external_url: "https://api.openinterop.org"
+    - title: "Contributing"
+      url: "contributing"
       children:
         - title: Features
-          url: "docs/getting-started#getting-started"
+          url: "contributing#features"
         - title: Development
-          url: "docs/getting-started#development"
+          url: "contributing#development"
         - title: Customization
-          url: "docs/getting-started#customization"
-    - title: "Extras"
-      url: "docs/extras"
-      children:
-        - title: Quizzes
-          url: "docs/extras/example-quiz"
-        - title: Tags Page
-          url: "tags"
+          url: "contributing#customization"
+    # - title: "Extras"
+    #   url: "docs/extras"
+    #   children:
+    #     - title: Quizzes
+    #       url: "docs/extras/example-quiz"
+    #     - title: Tags Page
+    #       url: "tags"
     - title: "About"
       url: "about"
     - title: "News"

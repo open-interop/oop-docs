@@ -1,4 +1,8 @@
+- title: "Installation"
+  url: installation
+- title: "User Guide"
+  url: user-guide
+- title: "API Documentation"
+  href: api-documentation
 - title: About
   url: about
-- title: Documentation
-  url: docs

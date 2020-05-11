@@ -5,9 +5,13 @@ permalink: /about/
 
 # About
 
-This is a [starter template](https://vsoch.github.com/docsy-jekyll/) for a Docsy jekyll theme, based
-on the Beautiful [Docsy](https://github.com/google/docsy) that renders with Hugo. This version is intended for
-native deployment on GitHub pages. See the [respository]({{ site.repo }}) for more details.
+[Open Interop](https://openinterop.org) the open-source interoperability middleware software. See the [respository]({{ site.repo }}) for more details.
+
+The software enables data collection from varied sources, translation and manipulation of data, and forwarding on to connected endpoints.
+
+Released under the GNU AGPLv3 open source license to ensure that anyone, anywhere can download and use the software and the only requirement is to share contributions back into the community.
+
+We are building an open and friendly community to help developers and users in the interoperability journey.
 
 ## Support
 
