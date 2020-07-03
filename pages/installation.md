@@ -196,11 +196,6 @@ production:
 
 These examples assume you use the development environment. If you're setting up an environment for production, please use the `production` keys rather than `development` in your yml files.
 
-#### Set up the database
-
-If you already have the database running then skip this step, if not...
-Create the database by running `bundle exec rails db:create`
-Then run the database migrations `bundle exec rails db:migrate`
 
 #### Using `docker-compose`
 
@@ -214,6 +209,12 @@ Run `docker exec -it oop-docker_oop-core_1 bash` to open a shell inside the `oop
 Now run `bin/rails console` followed by:
 `account = Account.create!(name: 'Test account', host: 'localhost')`
 `account.users.create!(email: "test@example.com", password: "testtest", password_confirmation: "testtest")`
+
+#### Setting up the database
+
+If you already have the database running then skip this step, if not...
+Create the database by running `bundle exec rails db:create`
+Then run the database migrations `bundle exec rails db:migrate`
 
 You have now created an account which you can use to log in to the interface.
 
