@@ -3,6 +3,6 @@
 - title: "User Guide"
   url: user-guide
 - title: "API Documentation"
-  href: api-documentation
+  external_url: "https://api.openinterop.org"
 - title: About
   url: about
