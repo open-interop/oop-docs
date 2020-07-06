@@ -11,6 +11,7 @@ permalink: /installation/
 - Install [rabbitmqadmin script](https://www.rabbitmq.com/management-cli.html)
 - Node v12.16.*
 
+
 ## via Github
 
 _Ensure you have read the [Prerequisites](/installation#Prerequisites) section._
@@ -28,6 +29,7 @@ The advantage of installing Open Interop via Docker is that it will run anywhere
 ### Prerequisites
 
 - [Install Docker](https://docs.docker.com/engine/install/)
+- Python 3.x (to install `rabbitmqadmin` tool)
 
 Both PostreSQL and Rabbit MQ could be run within a Docker container. However, we have found that most users already have database's configured on their machines and spinning up additional ones is not necessary.
 
@@ -123,11 +125,11 @@ volumes:
 
 #### Configuration
 
-You will notice from the above file that it requires a number of configuration files. You can find the contents of the `all.env` file on our config repository [oop-queue-config](https://github.com/open-interop/oop-queue-config) the file `.env.all.example` should give you a good starting point for what environment variables to define.
+You will notice from the above file that it requires a number of configuration files. You can find the contents of the `all.env` file on our config repository [oop-queue-config](https://github.com/open-interop/oop-queue-config) the file `.env.all.example` should give you a good starting point for what environment variables to define. In this .env file the field  `POSTGRES_PASSWORD` will currently be empty - enter the password you set when installing PostgreSQL here. 
 
 ##### RabbitMQ
 
-Assuming that you have RabbitMQ install correctly and the `rabbitmqadmin` tool installed. You need to do two things, add yourself a user to rabbitmq and import the queue config.
+Assuming that you have RabbitMQ install correctly (and added to PATH) and the `rabbitmqadmin` tool installed. You need to do two things, add yourself a user to rabbitmq and import the queue config.
 
 ###### Create a user
 
@@ -141,7 +143,7 @@ Ensure this is reflected in `OOP_AMQP_ADDRESS` connection string environment var
 
 ###### Import the queue config
 
-There is a pre-configured queue config in the [oop-queue-config](https://github.com/open-interop/oop-queue-config) repository.
+There is a pre-configured queue config in the [oop-queue-config](https://github.com/open-interop/oop-queue-config) repository. Download `rabbit-config.json` from the repo and run `sudo rabbitmqadmin import rabbit-config.json` to import it.
 
 ##### oop-core
 
@@ -169,7 +171,7 @@ default: &default
   variables:
     statement_timeout: 5000
 
-development:
+production:
   <<: *default
 ```
 
@@ -188,17 +190,39 @@ local:
 ```
 # config/secrets.yml
 
-development:
+production:
   secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
 ```
 
 These examples assume you use the development environment. If you're setting up an environment for production, please use the `production` keys rather than `development` in your yml files.
 
+
 #### Using `docker-compose`
 
 Calling the command `docker-compose up` will use the provided `Dockerfile` and pull down the necessary images.
 
+#### Creating a test account
+
+To create a test account you'll need to access the Docker container running `oop-core` and run some commands in there.
+
+Run `docker exec -it oop-docker_oop-core_1 bash` to open a shell inside the `oop-core` container.
+Now run `bin/rails console` followed by:
+`account = Account.create!(name: 'Test account', host: 'localhost')`
+`account.users.create!(email: "test@example.com", password: "testtest", password_confirmation: "testtest")`
+
+#### Setting up the database
+
+If you already have the database running then skip this step, if not...
+Create the database by running `bundle exec rails db:create`
+Then run the database migrations `bundle exec rails db:migrate`
+
+You have now created an account which you can use to log in to the interface.
+
+
+#### Installing the interface
+
+You've now installed [Open Interop](https://openinterop.org). Providing you completed the previous step, Open Interop will be running in Docker and the API endpoints will now work - but to access the interface and see what's going on you'll need to [install the interface](https://github.com/{{ site.github_user}}/oop-core-interface).
+
 ## Support
 
-If you need help, please don't hesitate to [open an issue](https://www.github.com/{{ site.github_repo }}/{{ site.github_user }}).
-
+If you need help, please don't hesitate to [open an issue](https://www.github.com/{{ site.github_user }}/{{ site.github_repo }}/issues/new).
