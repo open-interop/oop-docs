@@ -142,23 +142,23 @@ You will notice from the above file that it requires a number of configuration f
 
 ##### RabbitMQ
 
-Assuming that you have RabbitMQ install correctly (and added to PATH) and the `rabbitmqadmin` tool installed. You need to do two things, add yourself a user to rabbitmq and import the queue config.
+Assuming that you have RabbitMQ installed correctly (and added to PATH) and the `rabbitmqadmin` tool installed. You need to do two things, add a user to rabbitmq and import the queue config.
 
 ###### Create a user
 
-It should be noted that these commands should be run from inside the sbin of your installation of RabbitMQ Server.
-
 ```
-rabbitmqctl add_user oop somepassword
-rabbitmqctl list_permissions --vhost /
-rabbitmqctl set_permissions -p / oop ".*" ".*" ".*"
+sudo rabbitmqctl add_user oop somepassword
+sudo rabbitmqctl list_permissions --vhost /
+sudo rabbitmqctl set_permissions -p / oop ".*" ".*" ".*"
 ```
 
 Ensure this is reflected in `OOP_AMQP_ADDRESS` connection string environment variable.
 
+It should be noted that `sudo` should be removed for Windows based installations.
+
 ###### Import the queue config
 
-There is a pre-configured queue config in the [oop-queue-config](https://github.com/open-interop/oop-queue-config) repository. Download `rabbit-config.json` from the repo and run `rabbitmqadmin import rabbit-config.json` to import it.
+There is a pre-configured queue config in the [oop-queue-config](https://github.com/open-interop/oop-queue-config) repository. Download `rabbit-config.json` from the repo and run `sudo rabbitmqadmin import rabbit-config.json` to import it (again, Windows users should remove `sudo`)
 
 ##### oop-core
 
