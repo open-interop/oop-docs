@@ -43,7 +43,20 @@ These images can be used with docker-compose, Docker Swarm, and Kubernetes deplo
 
 In order to use docker-compose, you need to create a configuration file. We have a sample docker-compose file which can be used to get yourself up and running. Please review [docker](https://github.com/open-interop/oop-docker).
 
-Create a new folder called `oop-docker` and include a `docker-compose.yml` file. You will also require a `data` and `config` directory.
+Create a new folder called `oop-docker` and include a `docker-compose.yml` file. You will also require a `data` and `config` directory. So the file structure should end up looking like so, with additional files being added in subsequent steps.
+
+```
+oop-docker
+├── config 
+│   ├── database.yml
+│   ├── secrets.yml
+│   └── storage.yml
+├── data
+│   └── logs
+├── all.env
+├── docker-compose.yml
+└── rabbit-config.json
+```
 
 #### Example `docker-compose.yml` file
 
@@ -129,7 +142,7 @@ You will notice from the above file that it requires a number of configuration f
 
 ##### RabbitMQ
 
-Assuming that you have RabbitMQ install correctly (and added to PATH) and the `rabbitmqadmin` tool installed. You need to do two things, add yourself a user to rabbitmq and import the queue config.
+Assuming that you have RabbitMQ installed correctly (and added to PATH) and the `rabbitmqadmin` tool installed. You need to do two things, add a user to rabbitmq and import the queue config.
 
 ###### Create a user
 
@@ -141,9 +154,11 @@ sudo rabbitmqctl set_permissions -p / oop ".*" ".*" ".*"
 
 Ensure this is reflected in `OOP_AMQP_ADDRESS` connection string environment variable.
 
+It should be noted that `sudo` should be removed for Windows based installations.
+
 ###### Import the queue config
 
-There is a pre-configured queue config in the [oop-queue-config](https://github.com/open-interop/oop-queue-config) repository. Download `rabbit-config.json` from the repo and run `sudo rabbitmqadmin import rabbit-config.json` to import it.
+There is a pre-configured queue config in the [oop-queue-config](https://github.com/open-interop/oop-queue-config) repository. Download `rabbit-config.json` from the repo and run `sudo rabbitmqadmin import rabbit-config.json` to import it (again, Windows users should remove `sudo`)
 
 ##### oop-core
 
@@ -207,13 +222,12 @@ To create a test account you'll need to access the Docker container running `oop
 
 Run `docker exec -it oop-docker_oop-core_1 bash` to open a shell inside the `oop-core` container.
 Now run `bin/rails console` followed by:
-`account = Account.create!(name: 'Test account', host: 'localhost')`
+`account = Account.create!(name: 'Test account', hostname: 'localhost')`
 `account.users.create!(email: "test@example.com", password: "testtest", password_confirmation: "testtest")`
 
 #### Setting up the database
 
-If you already have the database running then skip this step, if not...
-Create the database by running `bundle exec rails db:create`
+If you already have the database running then skip this step, if not... From inside the bash shell created on the previous step, create the database by running `bundle exec rails db:create`
 Then run the database migrations `bundle exec rails db:migrate`
 
 You have now created an account which you can use to log in to the interface.
