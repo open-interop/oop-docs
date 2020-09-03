@@ -18,7 +18,7 @@ _Ensure you have read the [Prerequisites](/installation#Prerequisites) section._
 
 Installing via Github requires you to download all the microservice repositories individually.
 
-_This documentation site is a work in progress. Check back for updates._
+
 
 ## via Docker Hub
 
