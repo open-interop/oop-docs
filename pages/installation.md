@@ -8,7 +8,6 @@ permalink: /installation/
 
 - PostgreSQL 10 and above (Earlier versions should be supported. However, testing is performed in 10)
 - Rabbit MQ 3.8.3
-- Install [rabbitmqadmin script](https://www.rabbitmq.com/management-cli.html)
 - Node v12.16.*
 
 
@@ -20,14 +19,14 @@ _Ensure you have read the [Prerequisites](/installation#Prerequisites) section._
 
 - yarn 1.22.x (npm install -g yarn)
 - Go [1.15.x](https://golang.org/doc/install)
-- Ruby [2.6.6](https://www.ruby-lang.org/en/downloads/) (with [bundler](https://bundler.io/) installed)
+- Ruby [2.7.1](https://www.ruby-lang.org/en/downloads/) (with [bundler](https://bundler.io/) installed)
 
 
 Installing via Github requires you to download all the microservice repositories individually. Including the interface, there are ten services you'll need to install and run - this will take some time, and installing through Docker is recommended.
 
 ### RabbitMQ
 
-Assuming that you have RabbitMQ install correctly (and added to PATH) and the `rabbitmqadmin` tool installed. You need to do two things, add yourself a user to rabbitmq and import the queue config.
+Assuming that you have RabbitMQ install correctly (and added to PATH), you need add yourself a user to rabbitmq.
 
 ##### Create a user
 
@@ -39,9 +38,6 @@ sudo rabbitmqctl set_permissions -p / oop ".*" ".*" ".*"
 
 Ensure this is reflected in `OOP_AMQP_ADDRESS` connection string environment variable.
 
-##### Import the queue config
-
-There is a pre-configured queue config in the [oop-queue-config](https://github.com/open-interop/oop-queue-config) repository. Download `rabbit-config.json` from the repo and run `sudo rabbitmqadmin import rabbit-config.json` to import it.
 
 ### .env
 
@@ -131,7 +127,7 @@ SECRET_KEY_BASE={SECRETKEY}
 
 Clone the application `git clone http://github.com/open-interop/oop-core.git`
 In the app directory install all dependencies using  `bundle install`
-Create a symlink between
+Create a symlink to the .env file created earlier - `ln -nfs /path/to/.env /path/to/oop-core/`
 Ensure all variables are set up correctly in the config directory:
 
 ###### `database.yml`
@@ -177,13 +173,7 @@ production:
 Create the database - `bundle exec rails db:create`
 Run the database migrations - `bundle exec rails db:migrate`
 
-
-To allow login from the interface run the following commands from within the `oop-core` directory to create a dummy user:
-```
-account = Account.create!(name: 'Test account', host: 'localhost')
-
-account.users.create!(email: "test@example.com", password: "testtest", password_confirmation: "testtest")
-```
+For the initial setup run - `bin/rails open_interop:setup_initial_account`
 
 To start core run - `bin/rails server -b HOSTNAME -p 9001` where HOSTNAME is the host core is accessible from - this should be reflected in the `.env` file above
 
@@ -199,7 +189,7 @@ The following services can all be installed and set up in exactly the same way, 
 
 `cd oop-gateway`
 
-`ln ../.env`
+`ln -nfs /path/to/.env /path/to/oop-gateway`
 
 `yarn install`
 
@@ -211,7 +201,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-tempr`
 
-`ln ../.env`
+`ln -nfs /path/to/.env /path/to/oop-tempr`
 
 `yarn install`
 
@@ -223,7 +213,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-renderer`
 
-`ln ../.env`
+`ln -nfs /path/to/.env /path/to/oop-renderer`
 
 `yarn install`
 
@@ -235,7 +225,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-authenticator`
 
-`ln ../.env`
+`ln -nfs /path/to/.env /path/to/oop-authenticator`
 
 `yarn install`
 
@@ -247,7 +237,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-relay`
 
-`ln ../.env`
+`ln -nfs /path/to/.env /path/to/oop-relay`
 
 `yarn install`
 
@@ -259,7 +249,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-endpoints-http`
 
-`ln ../.env`
+`ln -nfs /path/to/.env /path/to/oop-endpoints-http`
 
 `yarn install`
 
