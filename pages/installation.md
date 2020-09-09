@@ -39,11 +39,11 @@ sudo rabbitmqctl set_permissions -p / oop ".*" ".*" ".*"
 Ensure this is reflected in `OOP_AMQP_ADDRESS` connection string environment variable.
 
 
-### .env
+### .global-env
 
-A file including all environment variables will need to be created outside of any of the microservice directories. A symlink will need to be created in each directory to mirror .env, the command for this will be included in the instructions for each microservice individually.
+A file including all environment variables will need to be created outside of any of the microservice directories. A symlink will need to be created in each directory to mirror .global-env, the command for this will be included in the instructions for each microservice individually.
 
-##### `.env.example`
+##### `.global-env`
 ```
 NODE_ENV=production
 RAILS_ENV=production
@@ -127,7 +127,7 @@ SECRET_KEY_BASE={SECRETKEY}
 
 Clone the application `git clone http://github.com/open-interop/oop-core.git`
 In the app directory install all dependencies using  `bundle install`
-Create a symlink to the .env file created earlier - `ln -nfs /path/to/.env /path/to/oop-core/`
+Create a symlink to the .env file created earlier - `ln -nfs /path/to/.global-env /path/to/oop-core/.env`
 Ensure all variables are set up correctly in the config directory:
 
 ###### `database.yml`
@@ -189,7 +189,7 @@ The following services can all be installed and set up in exactly the same way, 
 
 `cd oop-gateway`
 
-`ln -nfs /path/to/.env /path/to/oop-gateway`
+`ln -nfs /path/to/.global-env /path/to/oop-gateway/.env`
 
 `yarn install`
 
@@ -201,7 +201,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-tempr`
 
-`ln -nfs /path/to/.env /path/to/oop-tempr`
+`ln -nfs /path/to/.global-env /path/to/oop-tempr/.env`
 
 `yarn install`
 
@@ -213,7 +213,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-renderer`
 
-`ln -nfs /path/to/.env /path/to/oop-renderer`
+`ln -nfs /path/to/.global-env /path/to/oop-renderer/.env`
 
 `yarn install`
 
@@ -225,7 +225,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-authenticator`
 
-`ln -nfs /path/to/.env /path/to/oop-authenticator`
+`ln -nfs /path/to/.global-env /path/to/oop-authenticator/.env`
 
 `yarn install`
 
@@ -237,7 +237,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-relay`
 
-`ln -nfs /path/to/.env /path/to/oop-relay`
+`ln -nfs /path/to/.global-env /path/to/oop-relay/.env`
 
 `yarn install`
 
@@ -249,7 +249,7 @@ When all microservices are installed and core is up, run `yarn start`
 
 `cd oop-endpoints-http`
 
-`ln -nfs /path/to/.env /path/to/oop-endpoints-http`
+`ln -nfs /path/to/.global-env /path/to/oop-endpoints-http/.env`
 
 `yarn install`
 
