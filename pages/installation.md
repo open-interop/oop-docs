@@ -16,7 +16,7 @@ permalink: /installation/
 
 _Ensure you have read the [Prerequisites](/installation#Prerequisites) section._
 
-### Additional Prerequisites for Github Installation
+### Prerequisites for Github
 
 - yarn 1.22.x (npm install -g yarn)
 - Go [1.15.x](https://golang.org/doc/install)
@@ -295,7 +295,7 @@ _Ensure you have read the [Prerequisites](/installation#Prerequisites) section._
 
 The advantage of installing Open Interop via Docker is that it will run anywhere that you can run the Docker engine. This includes; Windows, Linux, and Mac OS. Containerisation is a valid method for both development and production systems. Here we will describe how to spin up a working and complete Open Interop backend with [docker-compose](https://docs.docker.com/compose/) for use in development and prototyping.
 
-### Prerequisites
+### Prerequisites for Docker
 
 - [Install Docker](https://docs.docker.com/engine/install/)
 - Python 3.x (to install `rabbitmqadmin` tool)
