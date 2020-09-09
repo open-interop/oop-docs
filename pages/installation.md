@@ -25,6 +25,24 @@ _Ensure you have read the [Prerequisites](/installation#Prerequisites) section._
 
 Installing via Github requires you to download all the microservice repositories individually. Including the interface, there are ten services you'll need to install and run - this will take some time, and installing through Docker is recommended.
 
+### RabbitMQ
+
+Assuming that you have RabbitMQ install correctly (and added to PATH) and the `rabbitmqadmin` tool installed. You need to do two things, add yourself a user to rabbitmq and import the queue config.
+
+##### Create a user
+
+```
+sudo rabbitmqctl add_user oop somepassword
+sudo rabbitmqctl list_permissions --vhost /
+sudo rabbitmqctl set_permissions -p / oop ".*" ".*" ".*"
+```
+
+Ensure this is reflected in `OOP_AMQP_ADDRESS` connection string environment variable.
+
+##### Import the queue config
+
+There is a pre-configured queue config in the [oop-queue-config](https://github.com/open-interop/oop-queue-config) repository. Download `rabbit-config.json` from the repo and run `sudo rabbitmqadmin import rabbit-config.json` to import it.
+
 ### .env
 
 A file including all environment variables will need to be created outside of any of the microservice directories. A symlink will need to be created in each directory to mirror .env, the command for this will be included in the instructions for each microservice individually.
